@@ -1,0 +1,5 @@
+FROM nginx:alpine
+
+ADD ./serverConfiguration/deploy/dev.vhost.conf /etc/nginx/conf.d/default.conf
+
+WORKDIR /var/www

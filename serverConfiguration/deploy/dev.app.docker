@@ -1,0 +1,20 @@
+# pull official base image
+FROM python:3.7
+
+# set work directory
+WORKDIR "/application"
+ADD /src /application
+
+RUN ls
+
+# set environment varibles
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# install dependencies
+COPY ./serverConfiguration/deploy/requirements.txt /application/
+RUN pip install -r requirements.txt
+
+RUN if [ -f mfcs_django/manage.py ] ; then cd mfcs_django && python manage.py runserver 0.0.0.0:8000; else echo "manage.py not found"; fi
+
+RUN ls
